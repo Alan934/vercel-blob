@@ -20,13 +20,13 @@ export default async function AllFilesPage() {
                             className="flex flex-col items-center bg-gray-900 p-4 rounded shadow-md"
                         >
                             <a href={blob.url} target="_blank" rel="noopener noreferrer">
-                                <Image 
-                                    src={blob.url}
-                                    alt={blob.pathname}
-                                    width={150}
-                                    height={150}
-                                    className="rounded mb-2"
-                                />
+                            <img 
+                                src={blob.url} 
+                                alt={blob.pathname} 
+                                width={150} 
+                                height={150} 
+                                className="rounded mb-2" 
+                            />
                             </a>
                             <div className="flex space-x-2">
                                 <CopyButton url={blob.url} />

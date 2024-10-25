@@ -70,6 +70,13 @@ export default function UploadForm() {
                 type="file"
                 onChange={(e) => setFile(e.target.files?.[0] || null)}
             />
+            
+            {preview && (
+                <div className="mb-4 w-full">
+                    <CopyButton url={preview} />
+                </div>
+            )}
+
             <div className="flex items-center">
                 <button
                     className="bg-blue-500 text-white p-2 rounded w-full hover:bg-blue-600 cursor-pointer"
@@ -77,13 +84,10 @@ export default function UploadForm() {
                 >
                     {inProgress ? "Uploading..." : "Upload"}
                 </button>
-                {preview && (
-                    <CopyButton url={preview} />
-                )}
             </div>
 
             {preview && (
-                <div>
+                <div className="mt-4">
                     <Image src={preview} alt="Uploaded preview" width={1200} height={1200} />
                 </div>
             )}
