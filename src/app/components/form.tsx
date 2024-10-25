@@ -48,8 +48,8 @@ export default function UploadForm() {
     };
 
     const styles = {
-        form: "bg-gray-800 p-6 rounded-lg shadow-lg", // Estilo del formulario
-        input: "border p-2 mb-4 w-full border-gray-600 rounded bg-gray-700 text-white", // Estilo del input
+        form: "bg-gray-800 p-6 rounded-lg shadow-lg",
+        input: "border p-2 mb-4 w-full border-gray-600 rounded bg-gray-700 text-white",
     };
 
     return (
