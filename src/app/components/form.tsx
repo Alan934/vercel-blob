@@ -49,7 +49,7 @@ export default function UploadForm() {
 
     const styles = {
         form: "bg-gray-800 p-6 rounded-lg shadow-lg",
-        input: "border p-2 mb-4 w-full border-gray-600 rounded bg-gray-700 text-white",
+        input: "border p-2 mb-4 w-full border-gray-600 rounded cursor-pointer bg-gray-700 text-white",
     };
 
     return (
@@ -62,7 +62,7 @@ export default function UploadForm() {
                 >
                     Go to All Files
                 </button>
-                <label htmlFor="fileUpload" className="text-white">Choose a file to upload:</label>
+                <label htmlFor="fileUpload" className="text-white cursor-pointer">Choose a file to upload:</label>
             </div>
             <input
                 className={styles.input}
@@ -72,7 +72,7 @@ export default function UploadForm() {
             />
             
             {preview && (
-                <div className="mb-4 w-full">
+                <div className="mb-4">
                     <CopyButton url={preview} />
                 </div>
             )}
