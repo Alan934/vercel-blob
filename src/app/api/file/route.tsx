@@ -13,5 +13,10 @@ export async function POST(req: Request) {
         access: "public",
     });
 
-    return NextResponse.json(blob);
+    // Configurar los encabezados de respuesta para evitar la caché
+    const response = NextResponse.json(blob);
+    response.headers.set("Cache-Control", "no-store");
+
+    return response;
 }
+
