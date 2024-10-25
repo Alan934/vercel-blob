@@ -23,7 +23,7 @@ Sigue estos pasos para configurar y ejecutar la aplicación:
 
 2. **Intala las dependencias:**
     ```bash
-    npm i
+    Utiliza npm i o el de tu preferencia
 
 3. **Ingresa las variables de entorno necesario segun el .env.example:**
     ```bash
@@ -31,4 +31,4 @@ Sigue estos pasos para configurar y ejecutar la aplicación:
 
 4. **Ejecutalo:**
     ```bash
-    npm run dev
+    Con npm run dev o el de tu preferencia

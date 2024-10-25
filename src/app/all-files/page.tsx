@@ -13,11 +13,11 @@ export default async function AllFilesPage() {
         return (
             <div>
                 <h1 className="text-2xl font-bold mb-4">Files</h1>
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-5 gap-4">
                     {blobs.blobs.map((blob, i) => (
                         <div
                             key={blob.pathname + i}
-                            className="flex flex-col items-center bg-gray-100 p-4 rounded shadow-md"
+                            className="flex flex-col items-center bg-gray-900 p-4 rounded shadow-md"
                         >
                             <a href={blob.url} target="_blank" rel="noopener noreferrer">
                                 <Image 
