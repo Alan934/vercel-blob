@@ -20,11 +20,11 @@ export default async function AllFilesPage() {
                         >
                             <a href={blob.url} target="_blank" rel="noopener noreferrer">
                             <img 
-                                src={blob.url} 
-                                alt={blob.pathname} 
-                                width={150} 
-                                height={150} 
-                                className="rounded mb-2" 
+                            src={`${blob.url}?timestamp=${new Date().getTime()}`} 
+                            alt={blob.pathname} 
+                            width={150} 
+                            height={150} 
+                            className="rounded mb-2" 
                             />
                             </a>
                             <div className="flex space-x-2">
