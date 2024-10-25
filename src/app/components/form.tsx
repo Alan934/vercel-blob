@@ -1,13 +1,19 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
+
+interface UploadResponse {
+    url: string; // Asegúrate de agregar otros campos si los necesitas
+}
 
 export default function UploadForm() {
     const [file, setFile] = useState<File | null>(null);
     const [preview, setPreview] = useState<string | null>(null);
-    const [uploadData, setUploadData] = useState<any>(null);
+    const [uploadData, setUploadData] = useState<UploadResponse | null>(null);
     const [inProgress, setInProgress] = useState(false);
     const [copySuccess, setCopySuccess] = useState(false);
+    const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -27,7 +33,7 @@ export default function UploadForm() {
                 throw new Error("Failed to upload file.");
             }
 
-            const data = await response.json();
+            const data: UploadResponse = await response.json(); // Asegúrate de que la respuesta coincide con tu tipo
             setPreview(data.url);
             setUploadData(data);
             setCopySuccess(false);
@@ -46,6 +52,10 @@ export default function UploadForm() {
         }
     };
 
+    const handleGoToAllFiles = () => {
+        router.push('/all-files');
+    };
+
     const styles = {
         form: "bg-black-100 p-4 rounded-lg",
         input: "border p-2 mb-4 w-full border-gray-300 rounded cursor-pointer",
@@ -53,7 +63,16 @@ export default function UploadForm() {
 
     return (
         <form onSubmit={handleSubmit} className={styles.form}>
-            <label htmlFor="fileUpload">Choose a file to upload:</label>
+            <div className="flex items-center mb-4">
+                <button
+                    className="bg-gray-500 text-white p-2 rounded mr-2 hover:bg-gray-600 cursor-pointer"
+                    type="button"
+                    onClick={handleGoToAllFiles}
+                >
+                    Go to All Files
+                </button>
+                <label htmlFor="fileUpload">Choose a file to upload:</label>
+            </div>
             <input
                 className={styles.input}
                 id="fileUpload"
