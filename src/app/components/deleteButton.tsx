@@ -1,35 +1,36 @@
-// deleteButton.tsx
-import React from "react";
+"use client";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
-interface DeleteButtonProps {
-    url: string;
-    onBlobChange: () => void; // Incluye esta propiedad
-}
+export function DeleteButton({url}: {url: string} ){
+    const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
 
-export const DeleteButton: React.FC<DeleteButtonProps> = ({ url, onBlobChange }) => {
-    const handleDelete = async () => {
+    const handleClick = async () => {
+        setIsLoading(true);
         try {
-            const response = await fetch(url, {
-                method: 'DELETE', // Método HTTP para eliminar
+            const response = await fetch('/api/file/' + encodeURIComponent(url), {
+                method: 'DELETE',
                 headers: {
-                    'Authorization': `Bearer ${process.env.NEXT_PUBLIC_BLOB_READ_WRITE_TOKEN}`, // Asegúrate de que el token esté correcto
+                    'Content-Type': 'application/json',
                 },
             });
-
+    
             if (!response.ok) {
-                throw new Error(`Error al eliminar el blob: ${response.statusText}`);
+                throw new Error('Failed to delete file.');
             }
-
-            onBlobChange(); // Llama a la función para actualizar la lista de blobs
+    
+            setIsLoading(false);
+            router.refresh();
         } catch (error) {
-            console.error("Error deleting blob:", error);
-            // Aquí puedes manejar el error si lo deseas
+            console.error('Error deleting file:', error);
+            setIsLoading(false);
         }
     };
 
     return (
-        <button onClick={handleDelete} className="bg-red-500 text-white px-2 py-1 rounded">
-            Delete
+        <button onClick={handleClick} className="bg-red-500 text-white p-2 rounded hover:bg-red-600" disabled={isLoading}>
+            {isLoading? 'Deleting...' : 'Delete'}
         </button>
-    );
-};
+    )
+}
