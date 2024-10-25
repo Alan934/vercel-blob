@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 interface UploadResponse {
-    url: string; // Asegúrate de agregar otros campos si los necesitas
+    url: string;
 }
 
 export default function UploadForm() {
@@ -33,7 +33,7 @@ export default function UploadForm() {
                 throw new Error("Failed to upload file.");
             }
 
-            const data: UploadResponse = await response.json(); // Asegúrate de que la respuesta coincide con tu tipo
+            const data: UploadResponse = await response.json();
             setPreview(data.url);
             setUploadData(data);
             setCopySuccess(false);
