@@ -20,3 +20,15 @@ Sigue estos pasos para configurar y ejecutar la aplicación:
    ```bash
    git clone <URL_DEL_REPOSITORIO>
    cd my-file-upload-app
+
+2. **Intala las dependencias:**
+    ```bash
+    npm i
+
+3. **Ingresa las variables de entorno necesario segun el .env.example:**
+    ```bash
+    BLOB_READ_WRITE_TOKEN=
+
+4. **Ejecutalo:**
+    ```bash
+    npm run dev

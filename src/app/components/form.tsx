@@ -1,7 +1,8 @@
 "use client";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import Image from "next/image";
+import { CopyButton } from "../components/copyButton"; // Asegúrate de que la ruta sea correcta
 
 interface UploadResponse {
     url: string;
@@ -12,7 +13,6 @@ export default function UploadForm() {
     const [preview, setPreview] = useState<string | null>(null);
     const [uploadData, setUploadData] = useState<UploadResponse | null>(null);
     const [inProgress, setInProgress] = useState(false);
-    const [copySuccess, setCopySuccess] = useState(false);
     const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -36,19 +36,10 @@ export default function UploadForm() {
             const data: UploadResponse = await response.json();
             setPreview(data.url);
             setUploadData(data);
-            setCopySuccess(false);
         } catch (error) {
             console.error("Error uploading file:", error);
         } finally {
             setInProgress(false);
-        }
-    };
-
-    const handleCopy = async () => {
-        if (preview) {
-            await navigator.clipboard.writeText(preview);
-            setCopySuccess(true);
-            setTimeout(() => setCopySuccess(false), 2000);
         }
     };
 
@@ -87,13 +78,7 @@ export default function UploadForm() {
                     {inProgress ? "Uploading..." : "Upload"}
                 </button>
                 {preview && (
-                    <button
-                        className="bg-green-500 text-white p-2 rounded ml-2 hover:bg-green-600 cursor-pointer"
-                        type="button"
-                        onClick={handleCopy}
-                    >
-                        {copySuccess ? "Copied!" : "Copy"}
-                    </button>
+                    <CopyButton url={preview} />
                 )}
             </div>
 
