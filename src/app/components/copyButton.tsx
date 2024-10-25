@@ -19,7 +19,7 @@ export function CopyButton({ url }: { url: string }) {
     return (
         <button 
             onClick={handleClick} 
-            className="bg-green-500 text-white p-2 rounded hover:bg-green-600"
+            className="bg-green-500 text-white p-2 w-full rounded hover:bg-green-600"
             disabled={isLoading}
         >
             {isLoading ? 'Copying...' : 'Copy URL'}

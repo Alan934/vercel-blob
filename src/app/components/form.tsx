@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
-import { CopyButton } from "../components/copyButton"; // Asegúrate de que la ruta sea correcta
+import { CopyButton } from "../components/copyButton";
 
 interface UploadResponse {
     url: string;
@@ -48,21 +48,21 @@ export default function UploadForm() {
     };
 
     const styles = {
-        form: "bg-black-100 p-4 rounded-lg",
-        input: "border p-2 mb-4 w-full border-gray-300 rounded cursor-pointer",
+        form: "bg-gray-800 p-6 rounded-lg shadow-lg", // Estilo del formulario
+        input: "border p-2 mb-4 w-full border-gray-600 rounded bg-gray-700 text-white", // Estilo del input
     };
 
     return (
         <form onSubmit={handleSubmit} className={styles.form}>
             <div className="flex items-center mb-4">
                 <button
-                    className="bg-gray-500 text-white p-2 rounded mr-2 hover:bg-gray-600 cursor-pointer"
+                    className="bg-gray-500 text-white p-2 rounded mr-2 hover:bg-gray-600 cursor-pointer transition duration-200"
                     type="button"
                     onClick={handleGoToAllFiles}
                 >
                     Go to All Files
                 </button>
-                <label htmlFor="fileUpload">Choose a file to upload:</label>
+                <label htmlFor="fileUpload" className="text-white">Choose a file to upload:</label>
             </div>
             <input
                 className={styles.input}
@@ -79,7 +79,7 @@ export default function UploadForm() {
 
             <div className="flex items-center">
                 <button
-                    className="bg-blue-500 text-white p-2 rounded w-full hover:bg-blue-600 cursor-pointer"
+                    className="bg-blue-500 text-white p-2 rounded w-full hover:bg-blue-600 cursor-pointer transition duration-200"
                     type="submit"
                 >
                     {inProgress ? "Uploading..." : "Upload"}
@@ -88,14 +88,14 @@ export default function UploadForm() {
 
             {preview && (
                 <div className="mt-4">
-                    <Image src={preview} alt="Uploaded preview" width={1200} height={1200} />
+                    <Image src={preview} alt="Uploaded preview" width={1200} height={1200} className="rounded-lg shadow-md" />
                 </div>
             )}
 
             {uploadData && (
-                <div className="mt-4 p-4 border border-gray-300 rounded">
-                    <h2 className="text-lg font-semibold">Upload Data:</h2>
-                    <pre>{JSON.stringify(uploadData, null, 2)}</pre>
+                <div className="mt-4 p-4 border border-gray-600 rounded bg-gray-700">
+                    <h2 className="text-lg font-semibold text-white">Upload Data:</h2>
+                    <pre className="text-gray-300">{JSON.stringify(uploadData, null, 2)}</pre>
                 </div>
             )}
         </form>
