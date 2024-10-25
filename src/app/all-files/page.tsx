@@ -1,6 +1,5 @@
 import { list } from "@vercel/blob";
 import React from "react";
-import Image from "next/image";
 import { DeleteButton } from "../components/deleteButton";
 import { CopyButton } from "../components/copyButton";
 
