@@ -5,14 +5,15 @@ import Image from "next/image";
 export default function UploadForm() {
     const [file, setFile] = useState<File | null>(null);
     const [preview, setPreview] = useState<string | null>(null);
+    const [uploadData, setUploadData] = useState<any>(null);
     const [inProgress, setInProgress] = useState(false);
+    const [copySuccess, setCopySuccess] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!file) return;
 
         setInProgress(true);
-
         const formData = new FormData();
         formData.append("file", file);
 
@@ -21,17 +22,27 @@ export default function UploadForm() {
                 method: "POST",
                 body: formData,
             });
-            
+
             if (!response.ok) {
                 throw new Error("Failed to upload file.");
             }
 
             const data = await response.json();
             setPreview(data.url);
+            setUploadData(data);
+            setCopySuccess(false);
         } catch (error) {
             console.error("Error uploading file:", error);
         } finally {
             setInProgress(false);
+        }
+    };
+
+    const handleCopy = async () => {
+        if (preview) {
+            await navigator.clipboard.writeText(preview);
+            setCopySuccess(true);
+            setTimeout(() => setCopySuccess(false), 2000);
         }
     };
 
@@ -49,16 +60,34 @@ export default function UploadForm() {
                 type="file"
                 onChange={(e) => setFile(e.target.files?.[0] || null)}
             />
-            <button
-                className="bg-blue-500 text-white p-2 rounded w-full hover:bg-blue-600 cursor-pointer"
-                type="submit"
-            >
-                {inProgress ? "Uploading..." : "Upload"}
-            </button>
+            <div className="flex items-center">
+                <button
+                    className="bg-blue-500 text-white p-2 rounded w-full hover:bg-blue-600 cursor-pointer"
+                    type="submit"
+                >
+                    {inProgress ? "Uploading..." : "Upload"}
+                </button>
+                {preview && (
+                    <button
+                        className="bg-green-500 text-white p-2 rounded ml-2 hover:bg-green-600 cursor-pointer"
+                        type="button"
+                        onClick={handleCopy}
+                    >
+                        {copySuccess ? "Copied!" : "Copy"}
+                    </button>
+                )}
+            </div>
 
             {preview && (
                 <div>
                     <Image src={preview} alt="Uploaded preview" width={1200} height={1200} />
+                </div>
+            )}
+
+            {uploadData && (
+                <div className="mt-4 p-4 border border-gray-300 rounded">
+                    <h2 className="text-lg font-semibold">Upload Data:</h2>
+                    <pre>{JSON.stringify(uploadData, null, 2)}</pre>
                 </div>
             )}
         </form>
