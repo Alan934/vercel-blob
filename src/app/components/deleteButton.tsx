@@ -2,7 +2,12 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export function DeleteButton({url}: {url: string} ){
+interface DeleteButtonProps {
+    url: string;
+    onBlobChange: () => Promise<void>; // Agregar la prop onBlobChange
+}
+
+export function DeleteButton({ url, onBlobChange }: DeleteButtonProps) {
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
 
@@ -15,13 +20,14 @@ export function DeleteButton({url}: {url: string} ){
                     'Content-Type': 'application/json',
                 },
             });
-    
+
             if (!response.ok) {
                 throw new Error('Failed to delete file.');
             }
-    
+
+            await onBlobChange(); // Llamar a onBlobChange para refrescar los blobs
             setIsLoading(false);
-            router.refresh();
+            router.refresh(); // Opcional, dependiendo de cómo estés manejando el estado
         } catch (error) {
             console.error('Error deleting file:', error);
             setIsLoading(false);
@@ -30,7 +36,7 @@ export function DeleteButton({url}: {url: string} ){
 
     return (
         <button onClick={handleClick} className="bg-red-500 text-white p-2 rounded hover:bg-red-600" disabled={isLoading}>
-            {isLoading? 'Deleting...' : 'Delete'}
+            {isLoading ? 'Deleting...' : 'Delete'}
         </button>
-    )
+    );
 }
