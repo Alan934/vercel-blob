@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { DeleteButton } from "../components/deleteButton";
 import { CopyButton } from "../components/copyButton";
 
@@ -11,6 +12,7 @@ interface Blob {
 export default function AllFilesPage() {
     const [blobs, setBlobs] = useState<Blob[]>([]);
     const [error, setError] = useState<string | null>(null);
+    const router = useRouter();
 
     const fetchBlobs = async () => {
         try {
@@ -30,10 +32,20 @@ export default function AllFilesPage() {
         fetchBlobs();
     }, []);
 
+    const handleGoHome = () => {
+        router.push('/upload');
+    };
+
     return (
         <div>
             <h1 className="text-2xl font-bold mb-4 text-center">Archivos</h1>
-            <div className="mt-4 text-center">
+            <div className="mt-4 text-center mb-6"> {/* Añade mb-6 aquí para crear espacio debajo de los botones */}
+                <button
+                    onClick={handleGoHome}
+                    className="bg-gray-500 text-white mx-4 px-4 py-2 rounded hover:bg-gray-600"
+                >
+                    Volver a Inicio
+                </button>
                 <button
                     onClick={fetchBlobs}
                     className="bg-blue-500 text-white mx-4 px-4 py-2 rounded hover:bg-blue-600"
