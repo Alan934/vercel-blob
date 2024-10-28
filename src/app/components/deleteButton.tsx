@@ -4,7 +4,7 @@ import { useState } from "react";
 
 interface DeleteButtonProps {
     url: string;
-    onBlobChange: () => Promise<void>; // Agregar la prop onBlobChange
+    onBlobChange: () => Promise<void>;
 }
 
 export function DeleteButton({ url, onBlobChange }: DeleteButtonProps) {
@@ -25,9 +25,9 @@ export function DeleteButton({ url, onBlobChange }: DeleteButtonProps) {
                 throw new Error('Failed to delete file.');
             }
 
-            await onBlobChange(); // Llamar a onBlobChange para refrescar los blobs
+            await onBlobChange();
             setIsLoading(false);
-            router.refresh(); // Opcional, dependiendo de cómo estés manejando el estado
+            router.refresh();
         } catch (error) {
             console.error('Error deleting file:', error);
             setIsLoading(false);
