@@ -1,3 +1,4 @@
+// src/app/api/file/[url]/route.ts
 import { del } from "@vercel/blob";
 import { NextResponse } from "next/server";
 
